@@ -11,7 +11,7 @@ function testFunc() {
     if (response1 is http:Response) {
         var result = response1.getTextPayload();
         if (result is string) {
-            test:assertEquals(result, "Mock1 resource was invoked.");
+            test:assertEquals(result, "Mock1 resource was invoked.\n");
         } else {
             test:assertFail(msg = "Invalid response message:");
         }
@@ -23,7 +23,7 @@ function testFunc() {
     if (response2 is http:Response) {
         var result = response2.getTextPayload();
         if (result is string) {
-            test:assertEquals(result, "Mock2 resource was invoked.");
+            test:assertEquals(result, "Mock2 resource was invoked.\n");
         } else {
             test:assertFail(msg = "Invalid response message:");
         }
@@ -36,7 +36,7 @@ function testFunc() {
     if (response3 is http:Response) {
         var result = response3.getTextPayload();
         if (result is string) {
-            test:assertEquals(result, "Mock3 resource was invoked.");
+            test:assertEquals(result, "Mock3 resource was invoked.\n");
         } else {
             test:assertFail(msg = "Invalid response message:");
         }

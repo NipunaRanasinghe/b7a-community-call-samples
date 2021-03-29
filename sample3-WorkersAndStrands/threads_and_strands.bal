@@ -2,8 +2,8 @@ import ballerina/io;
 import ballerina/http;
 
 public function main() {
-    executeStartAction();
     error? result = executeWorkers();
+    executeStartAction(); 
 }
 
 // Create two new strands. Ballerina runtime assigns the first one to a separate thread and assigns
