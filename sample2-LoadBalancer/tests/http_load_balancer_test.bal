@@ -49,7 +49,7 @@ function testFunc() {
     if (response4 is http:Response) {
         var result = response4.getTextPayload();
         if (result is string) {
-            test:assertEquals(result, "Mock1 resource was invoked.");
+            test:assertEquals(result, "Mock1 resource was invoked.\n");
         } else {
             test:assertFail(msg = "Invalid response message:");
         }
