@@ -3,15 +3,14 @@ import ballerina/http;
 
 public function main() {
     error? result = executeWorkers();
-    executeStartAction(); 
+    executeStartAction();
 }
 
 // Create two new strands. Ballerina runtime assigns the first one to a separate thread and assigns
 // the second one to the same thread executing the current strand.
 public function executeStartAction() {
-    io:println("--- case 4 ---");
     future<int> f1 = @strand {thread: "any"} start multiply(1, 2);
-    future<int[]> f2 = start createArray();
+    future<()> f2 = start createVariables();
 
     io:println("Before the wait action");
     var results = wait {f1, f2};
@@ -21,14 +20,6 @@ public function executeStartAction() {
 function multiply(int x, int y) returns int {
     io:println(string `Multiplying ${x} * ${y}`);
     return x * y;
-}
-
-function createArray() returns int[] {
-    int[] a = [];
-    foreach int i in 0 ... 10000 {
-        a[i] = i;
-    }
-    return a;
 }
 
 // The code outside the named workers belongs to an implicit 
