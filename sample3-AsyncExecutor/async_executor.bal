@@ -6,22 +6,6 @@ public function main() {
     executeStartAction();
 }
 
-// Create two new strands. Ballerina runtime assigns the first one to a separate thread and assigns
-// the second one to the same thread executing the current strand.
-public function executeStartAction() {
-    future<int> f1 = @strand {thread: "any"} start multiply(1, 2);
-    future<()> f2 = start createVariables();
-
-    io:println("Before the wait action");
-    var results = wait {f1, f2};
-    io:println("After the wait action\n");
-}
-
-function multiply(int x, int y) returns int {
-    io:println(string `Multiplying ${x} * ${y}`);
-    return x * y;
-}
-
 // The code outside the named workers belongs to an implicit 
 // default worker. The default worker in each function wil be 
 // executed in the same strand as the caller function.
@@ -45,4 +29,20 @@ public function executeWorkers() returns error? {
     record { error? w1; error? w2; } result = wait {w1, w2};
 
     io:println("Worker execution finished: ", result);
+}
+
+// Create two new strands. Ballerina runtime assigns the first one to a separate thread and assigns
+// the second one to the same thread executing the current strand.
+public function executeStartAction() {
+    future<int> f1 = @strand {thread: "any"} start multiply(1, 2);
+    future<()> f2 = start createVariables();
+
+    io:println("Before the wait action");
+    var results = wait {f1, f2};
+    io:println("After the wait action\n");
+}
+
+function multiply(int x, int y) returns int {
+    io:println(string `Multiplying ${x} * ${y}`);
+    return x * y;
 }
